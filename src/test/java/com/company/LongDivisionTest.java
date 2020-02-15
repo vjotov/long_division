@@ -10,5 +10,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class LongDivisionTest {
 
-
+    @Test
+    void divisionByZero() {
+        assertThrows(ArithmeticException.class, () -> {Claculator.divide(1,0);});
+    }
 }

@@ -12,6 +12,20 @@ public class LongDivisionTest {
 
     @Test
     void divisionByZero() {
-        assertThrows(ArithmeticException.class, () -> {Claculator.divide(1,0);});
+        assertThrows(IllegalArgumentException.class, () -> {Claculator.divide(1,0);});
+    }
+
+    @Test
+    void divisionOnGreater() {
+        // TODO 1/2=0 |0
+    }
+
+    @Test
+    void fourOnTwo() {
+        // TODO 4/2=2 |0
+    }
+    @Test
+    void fiveOnTwo() {
+        // TODO 5/2=2 | 1
     }
 }

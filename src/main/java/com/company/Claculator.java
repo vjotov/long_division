@@ -12,7 +12,7 @@ import java.util.stream.Stream;
 public class Claculator {
     public static Result divide(int dividend, int divisor ){
         if(divisor == 0) {
-            throw new ArithmeticException("Division by zero!");
+            throw new IllegalArgumentException("Divisor cannot be 0, division by zero");
         }
         boolean isNagativeResult;
         if(dividend < 0 ^ divisor < 0)
@@ -22,13 +22,18 @@ public class Claculator {
 
         dividend = Math.abs(dividend);
         divisor = Math.abs(divisor);
+        Result result = new Result();
 
         if (dividend < divisor) {
-            // ZERO result
+            ResultItem line = new ResultItem(dividend, divisor, 0, 0);
+            result.addResult(line);
+            return result;
         }
+
+        //........
         int divisorLength = (int) (Math.log10(divisor) + 1);
         int dividendLength = (int) Math.log10(dividend) + 1;
-        Result result = new Result();
+
 
         int [] dividendNums = getArrayOfDigits(dividendLength);
 

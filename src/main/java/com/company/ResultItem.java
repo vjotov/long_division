@@ -4,14 +4,14 @@ public class ResultItem {
     private int dividend;
     private int divisor;
     private int quotient;
-    private int reminder;
+    private int module;
 
     public ResultItem() {}
     public ResultItem(int dividend, int divisor, int quotient, int reminder) {
         this.dividend = dividend;
         this.divisor = divisor;
         this.quotient = quotient;
-        this.reminder = reminder;
+        this.module = reminder;
     }
 
     public int getDividend() {
@@ -38,11 +38,11 @@ public class ResultItem {
         this.quotient = intResult;
     }
 
-    public int getReminder() {
-        return reminder;
+    public int getModule() {
+        return module;
     }
 
-    public void setReminder(int reminder) {
-        this.reminder = reminder;
+    public void setModule(int reminder) {
+        this.module = reminder;
     }
 }

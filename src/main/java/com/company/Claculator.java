@@ -1,13 +1,7 @@
 package com.company;
 
-import java.lang.reflect.Array;
 import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
-import java.util.stream.Stream;
 
 public class Claculator {
     public static Result divide(int dividend, int divisor ){
@@ -30,22 +24,23 @@ public class Claculator {
             return result;
         }
 
-        //........
         int divisorLength = (int) (Math.log10(divisor) + 1);
         int dividendLength = (int) Math.log10(dividend) + 1;
 
-
         int [] dividendNums = getArrayOfDigits(dividendLength);
 
-        int tmpInt = dividendNums[0];
-        boolean  isContinue = false;
+        int tmpInt;
+        int multiplyResult;
+        int remDiv = 0;
 
-        for (int i = 0; i < dividendNums.length || isContinue; i++) {
+        for (int i = 0; i < dividendNums.length; i++) {
+            tmpInt = (remDiv * 10) +dividendNums[i];
+
             if(tmpInt >= divisor) {
                 ResultItem line = new ResultItem();
                 line.setQuotient(tmpInt / divisor);
-                int remDiv = tmpInt % divisor;
-                line.setReminder(remDiv);
+                remDiv = tmpInt % divisor;
+                line.setModule(remDiv);
                 if (remDiv != 0 && i != dividendNums.length - 1) { //1
                     tmpInt = remDiv * 10 + dividendNums[i];
                     result.addResult(line);
@@ -53,7 +48,6 @@ public class Claculator {
                 }
                 if (i < dividendNums.length -1){//2
                     tmpInt = dividendNums[++i];
-                    isContinue = true;
                 }
                 continue;
             } else {

@@ -14,18 +14,18 @@ public class Claculator {
         if(divisor == 0) {
             throw new IllegalArgumentException("Divisor cannot be 0, division by zero");
         }
-        boolean isNagativeResult;
+        boolean isPositiveResult;
         if(dividend < 0 ^ divisor < 0)
-            isNagativeResult = true;
+            isPositiveResult = false;
         else
-            isNagativeResult = false;
+            isPositiveResult = true;
 
         dividend = Math.abs(dividend);
         divisor = Math.abs(divisor);
-        Result result = new Result();
+        Result result = new Result(isPositiveResult);
 
         if (dividend < divisor) {
-            ResultItem line = new ResultItem(dividend, divisor, 0, 0);
+            ResultItem line = new ResultItem(0, dividend, divisor, 0, 0);
             result.addResult(line);
             return result;
         }
@@ -35,17 +35,16 @@ public class Claculator {
         int dividendLength = (int) Math.log10(dividend) + 1;
 
 
-        int [] dividendNums = getArrayOfDigits(dividendLength);
+        int [] dividendNums = getArrayOfDigits(dividend);
 
         int tmpInt = dividendNums[0];
         boolean  isContinue = false;
 
         for (int i = 0; i < dividendNums.length || isContinue; i++) {
             if(tmpInt >= divisor) {
-                ResultItem line = new ResultItem();
-                line.setQuotient(tmpInt / divisor);
                 int remDiv = tmpInt % divisor;
-                line.setReminder(remDiv);
+                ResultItem line = new ResultItem(i,tmpInt,divisor,(tmpInt / divisor),remDiv);
+                result.addResult(line);
                 if (remDiv != 0 && i != dividendNums.length - 1) { //1
                     tmpInt = remDiv * 10 + dividendNums[i];
                     result.addResult(line);
@@ -58,7 +57,8 @@ public class Claculator {
                 continue;
             } else {
                 if ( tmpInt == 0) {
-                    result += tmpInt;
+                    ResultItem line = new ResultItem(i,0,divisor,0,0);
+                    result.addResult(line);
                     if (i < dividendNums.length){
                         tmpInt = i;
                     }
@@ -77,7 +77,7 @@ public class Claculator {
         //int divReminded = (int) ( dividend - divPart * (Math.pow(10,divisorLength)));
 
         System.out.println();
-        return null;
+        return result;
     }
 
     private static int getLeftNumber(int i, int[] dividendNums, int divisor) {

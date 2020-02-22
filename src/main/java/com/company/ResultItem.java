@@ -1,17 +1,27 @@
 package com.company;
 
 public class ResultItem {
+    private int offset;
     private int dividend;
     private int divisor;
     private int quotient;
     private int reminder;
 
     public ResultItem() {}
-    public ResultItem(int dividend, int divisor, int quotient, int reminder) {
+    public ResultItem(int offset, int dividend, int divisor, int quotient, int reminder) {
+        this.offset = offset;
         this.dividend = dividend;
         this.divisor = divisor;
         this.quotient = quotient;
         this.reminder = reminder;
+    }
+
+    public int getOffset() {
+        return offset;
+    }
+
+    public void setOffset(int offset) {
+        this.offset = offset;
     }
 
     public int getDividend() {

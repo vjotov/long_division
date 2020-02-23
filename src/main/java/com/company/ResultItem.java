@@ -1,5 +1,7 @@
 package com.company;
 
+import java.util.Objects;
+
 public class ResultItem {
     private int offset;
     private int dividend;
@@ -8,6 +10,7 @@ public class ResultItem {
     private int reminder;
 
     public ResultItem() {}
+
     public ResultItem(int offset, int dividend, int divisor, int quotient, int reminder) {
         this.offset = offset;
         this.dividend = dividend;
@@ -54,5 +57,22 @@ public class ResultItem {
 
     public void setReminder(int reminder) {
         this.reminder = reminder;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ResultItem that = (ResultItem) o;
+        return offset == that.offset &&
+                dividend == that.dividend &&
+                divisor == that.divisor &&
+                quotient == that.quotient &&
+                reminder == that.reminder;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(offset, dividend, divisor, quotient, reminder);
     }
 }

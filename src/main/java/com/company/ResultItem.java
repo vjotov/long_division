@@ -6,16 +6,12 @@ public class ResultItem {
     private int offset;
     private int dividend;
     private int divisor;
-    private int quotient;
     private int reminder;
 
     public ResultItem() {}
 
-    public ResultItem(int offset, int dividend, int divisor, int quotient, int reminder) {
+    public ResultItem(int offset, int reminder) {
         this.offset = offset;
-        this.dividend = dividend;
-        this.divisor = divisor;
-        this.quotient = quotient;
         this.reminder = reminder;
     }
 
@@ -43,14 +39,6 @@ public class ResultItem {
         this.divisor = divisor;
     }
 
-    public int getQuotient() {
-        return quotient;
-    }
-
-    public void setQuotient(int intResult) {
-        this.quotient = intResult;
-    }
-
     public int getReminder() {
         return reminder;
     }
@@ -67,12 +55,11 @@ public class ResultItem {
         return offset == that.offset &&
                 dividend == that.dividend &&
                 divisor == that.divisor &&
-                quotient == that.quotient &&
                 reminder == that.reminder;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(offset, dividend, divisor, quotient, reminder);
+        return Objects.hash(offset, dividend, divisor, reminder);
     }
 }

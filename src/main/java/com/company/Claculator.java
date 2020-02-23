@@ -4,91 +4,65 @@ import java.util.Arrays;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class Claculator {
-    public static Result divide(int dividend, int divisor ){
+    public static Result divide(int dividend, int divisor ) {
         if(divisor == 0) {
             throw new IllegalArgumentException("Divisor cannot be 0, division by zero");
         }
-        boolean isPositiveResult;
-        if(dividend < 0 ^ divisor < 0)
-            isPositiveResult = false;
-        else
-            isPositiveResult = true;
-
-        dividend = Math.abs(dividend);
-        divisor = Math.abs(divisor);
-        Result result = new Result(isPositiveResult);
+        Result result = new Result(dividend,divisor);
 
         if (dividend < divisor) {
-            ResultItem line = new ResultItem(0, dividend, divisor, 0, 0);
+            ResultItem line = new ResultItem(0,divisor);
             result.addResult(line);
             return result;
         }
 
-        int divisorLength = (int) (Math.log10(divisor) + 1);
-        int dividendLength = (int) Math.log10(dividend) + 1;
-
-
         int [] dividendNums = getArrayOfDigits(dividend);
 
-        int tmpInt = dividendNums[0];
-        boolean  isContinue = false;
 
-        for (int i = 0; i < dividendNums.length || isContinue; i++) {
+        int tmpInt = dividendNums[0];
+
+        for(int i = 0; i < dividendNums.length /*|| isContinue*/; i++) {
             if(tmpInt >= divisor) {
+                ResultItem line = new ResultItem();
+                line.setDividend(tmpInt);
+                line.setDivisor(divisor);
                 int remDiv = tmpInt % divisor;
-                ResultItem line = new ResultItem(i,tmpInt,divisor,(tmpInt / divisor),remDiv);
+                line.setReminder(remDiv);
                 result.addResult(line);
                 if (remDiv != 0 && i != dividendNums.length - 1) { //1
-                    tmpInt = remDiv * 10 + dividendNums[i];
-                    result.addResult(line);
-                    continue;
+                   tmpInt = remDiv * 10 + dividendNums[i+1];
+                   continue;
                 }
-                if (i < dividendNums.length -1){//2
-                    tmpInt = dividendNums[++i];
-                    isContinue = true;
+                if (i < dividendNums.length-1) {
+                    tmpInt = dividendNums[i+1];
                 }
                 continue;
             } else {
-                if ( tmpInt == 0) {
-                    ResultItem line = new ResultItem(i,0,divisor,0,0);
+                if (tmpInt == 0) {
+                    ResultItem line = new ResultItem(0, 0);
                     result.addResult(line);
-                    if (i < dividendNums.length){
-                        tmpInt = i;
+                    if (i < dividendNums.length-1) {
+                        tmpInt = dividendNums[i+1];
                     }
-                    isContinue = false;
                     continue;
                 }
-                if (tmpInt < divisor){
-                    tmpInt = dividendNums[i]*10 + dividendNums[++i];
-                    isContinue = true;
-                    continue;
+                if (tmpInt < divisor) {
+                    if (i < dividendNums.length -1 ) {
+                        tmpInt = tmpInt * 10 + dividendNums[i+1];
+                        continue;
+                    } else {
+                        ResultItem line = new ResultItem(0, tmpInt);
+                        result.addResult(line);
+                    }
                 }
             }
+
         }
 
-        //int divPart = (int) (dividend / (Math.pow(10,divisorLength)));
-        //int divReminded = (int) ( dividend - divPart * (Math.pow(10,divisorLength)));
-
-        System.out.println();
         return result;
     }
 
-    private static int getLeftNumber(int i, int[] dividendNums, int divisor) {
-        int result = dividendNums[i];
-        if (result < divisor)
-            return result;
-        else
-            return 0;
-    }
-
     private static int[] getArrayOfDigits (int number) {
-// from mentor to refactor later
-        //        List<Integer> collect = Stream.iterate(number, i -> i / 10)
-//                .map(i -> i % 10)
-//                .limit((int) (Math.log10(number) + 1))
-//                .collect(Collectors.toList());
-//        printArray( collect.toArray());
-
         int numberLength = (int) Math.log10(number) + 1;
         int[] result = new int[numberLength];
 
@@ -100,12 +74,6 @@ public class Claculator {
                     return tt % 10;
                 })
                 .toArray();
-        // Cycles - working case
-        //        for(int i =dividentLength -1, tempNum = dividend; i  >= 0 ; i--, tempNum /= 10) {
-        //            dividendNums[i] = tempNum % 10;
-        ////            System.out.print(i + "->");
-        //            System.out.println(dividendNums[i]);
-        //        }
         invertIntArray(result);
 
         return result;
@@ -115,13 +83,6 @@ public class Claculator {
             int temp = array[i];
             array[i] = array[array.length - 1 - i];
             array[array.length - 1 - i] = temp;
-        }
-    }
-
-    private static void printIntArray(int[] array) {
-        for ( int i=0; i < array.length ;i++) {
-            System.out.println(i+" -> "+array[i]);
-
         }
     }
 }

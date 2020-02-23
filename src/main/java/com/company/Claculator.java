@@ -1,13 +1,7 @@
 package com.company;
 
-import java.lang.reflect.Array;
 import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
-import java.util.stream.Stream;
 
 public class Claculator {
     public static Result divide(int dividend, int divisor ){
@@ -30,7 +24,6 @@ public class Claculator {
             return result;
         }
 
-        //........
         int divisorLength = (int) (Math.log10(divisor) + 1);
         int dividendLength = (int) Math.log10(dividend) + 1;
 

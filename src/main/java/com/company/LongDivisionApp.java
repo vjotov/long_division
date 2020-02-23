@@ -1,5 +1,6 @@
 package com.company;
 
+import java.text.Format;
 import java.util.Scanner;
 
 public class LongDivisionApp {
@@ -9,7 +10,8 @@ public class LongDivisionApp {
 //	    int divisor = getInput("divisor");
         //System.out.println(((int) Math.log10(123111) + 1));
 //        Result result = Claculator.divide(devident, divisor);
-        Result result = Claculator.divide(4, 2);
+        Result result = Claculator.divide(132, 2);
+        Formatter.print(result);
     }
     private static int getInput(String inputName) {
         Scanner in = new Scanner(System.in);

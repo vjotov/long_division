@@ -6,6 +6,7 @@ public class ResultItem {
     private int offset;
     private int dividend;
     private int divisor;
+    private int result;
     private int reminder;
 
     public ResultItem() {}
@@ -61,5 +62,13 @@ public class ResultItem {
     @Override
     public int hashCode() {
         return Objects.hash(offset, dividend, divisor, reminder);
+    }
+
+    public void setResult(int result) {
+        this.result = result;
+    }
+
+    public int getResult() {
+        return this.result;
     }
 }

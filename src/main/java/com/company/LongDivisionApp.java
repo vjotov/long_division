@@ -10,7 +10,7 @@ public class LongDivisionApp {
 //	    int divisor = getInput("divisor");
         //System.out.println(((int) Math.log10(123111) + 1));
 //        Result result = Claculator.divide(devident, divisor);
-        Result result = Claculator.divide(132, 2);
+        Result result = Claculator.divide(78945, 4);
         Formatter.print(result);
     }
     private static int getInput(String inputName) {

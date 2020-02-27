@@ -16,44 +16,70 @@ public class Formatter {
         for ( int i = 0; i < lines.size(); i++) {
             ResultItem line = lines.get(i);
 
-            String pattern1, pattern2;
-            if(i==0) {
-                pattern1 = " %s%d%s|%s%n";
-                pattern2 = "  %s%s|%s%n";
-                //right = Stream.generate(() -> "-")
-                //        .limit(resultLengts)
-                //        .map(Object::toString)
-                //        .collect(Collectors.joining());
-
-                
-
-            } else if (i ==1 ) {
-                //right = Integer.toString(result.getResult());
-            }
-            else {
-                pattern1 = " %s%d%s%n";
-                pattern2 = "  %s%s%n";
-                //right = "";
-            }
             int dividend = line.getDividend();
+            int reminder = line.getReminder();
+            int lineResult = line.getResult()*line.getDivisor();
+            int lineResultLen = (int) Math.log10(line.getReminder()) + 1;
             int dividentLen = (int) Math.log10(dividend) +1;
-            System.out.format(" %s%d%s|%s%n",
-                    Stream.generate(() -> " ")
-                            .limit(offset)
-                            .map(Object::toString)
-                            .collect(Collectors.joining()),
-                    dividend,
-                    Stream.generate(() -> " ")
-                            .limit(dividendColWidth - offset - dividentLen)
-                            .map(Object::toString)
-                            .collect(Collectors.joining()),
+            if(i==0) {
+                System.out.format(" %s%d%s|%s%n",
+                        Stream.generate(() -> " ")
+                                .limit(offset)
+                                .map(Object::toString)
+                                .collect(Collectors.joining()),
+                        lineResult,
+                        Stream.generate(() -> " ")
+                                .limit(dividendColWidth - offset - dividentLen + lineResultLen)
+                                .map(Object::toString)
+                                .collect(Collectors.joining()),
+                        Stream.generate(() -> "-")
+                                .limit(resultLengts)
+                                .map(Object::toString)
+                                .collect(Collectors.joining())
+                );
+                System.out.format(" %s%s|%s%n",
+                        Stream.generate(() -> "-")
+                                .limit(dividentLen)
+                                .map(Object::toString)
+                                .collect(Collectors.joining()),
+                        Stream.generate(() -> " ")
+                                .limit(dividendColWidth - offset - dividentLen)
+                                .map(Object::toString)
+                                .collect(Collectors.joining()),
+                        result.getResult()
+                );
+                offset += dividentLen -1;
+
+            } else {
+                System.out.format(" %s_%d%n",
+                        Stream.generate(() -> " ")
+                                .limit(dividendColWidth - offset - dividentLen)
+                                .map(Object::toString)
+                                .collect(Collectors.joining()),
+                        dividend
+                        );
+                System.out.format(" %s %s%n",
+                        Stream.generate(() -> " ")
+                                .limit(dividendColWidth - offset - dividentLen)
+                                .map(Object::toString)
+                                .collect(Collectors.joining()),
+                        Stream.generate(() -> "-")
+                                .limit(dividentLen)
+                                .map(Object::toString)
+                                .collect(Collectors.joining())
+
+                );
+                if(i == lines.size()-1) {
+
+                    System.out.format(" %s %d%n",
+                            Stream.generate(() -> " ")
+                                    .limit(dividendColWidth - offset - dividentLen + lineResultLen)
+                                    .map(Object::toString)
+                                    .collect(Collectors.joining()),
+                            reminder
                     );
-            System.out.format(" %s%n",
-                    Stream.generate(() -> "-")
-                            .limit(dividentLen)
-                            .map(Object::toString)
-                            .collect(Collectors.joining())
-                    );
+                }
+            }
         }
     }
 }

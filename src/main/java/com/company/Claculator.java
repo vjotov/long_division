@@ -26,6 +26,7 @@ public class Claculator {
                 ResultItem line = new ResultItem();
                 line.setDividend(tmpInt);
                 line.setDivisor(divisor);
+                line.setResult(tmpInt/divisor);
                 int remDiv = tmpInt % divisor;
                 line.setReminder(remDiv);
                 result.addResult(line);

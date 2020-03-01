@@ -22,64 +22,44 @@ public class Formatter {
             int lineResultLen = (int) Math.log10(line.getReminder()) + 1;
             int dividentLen = (int) Math.log10(dividend) +1;
             if(i==0) {
-                System.out.format(" %s%d%s|%s%n",
-                        Stream.generate(() -> " ")
-                                .limit(offset)
-                                .map(Object::toString)
-                                .collect(Collectors.joining()),
+                System.out.format(" %d%s|%s%n",
                         lineResult,
-                        Stream.generate(() -> " ")
-                                .limit(dividendColWidth - offset - dividentLen + lineResultLen)
-                                .map(Object::toString)
-                                .collect(Collectors.joining()),
-                        Stream.generate(() -> "-")
-                                .limit(resultLengts)
-                                .map(Object::toString)
-                                .collect(Collectors.joining())
+                        getSpacer(" ", dividendColWidth - lineResultLen),
+                        getSpacer("-", resultLengts)
                 );
                 System.out.format(" %s%s|%s%n",
-                        Stream.generate(() -> "-")
-                                .limit(dividentLen)
-                                .map(Object::toString)
-                                .collect(Collectors.joining()),
-                        Stream.generate(() -> " ")
-                                .limit(dividendColWidth - offset - dividentLen)
-                                .map(Object::toString)
-                                .collect(Collectors.joining()),
+                        getSpacer("-", lineResultLen),
+                        getSpacer(" ", dividendColWidth - offset - lineResultLen),
                         result.getResult()
                 );
-                offset += dividentLen -1;
-
             } else {
-                System.out.format(" %s_%d%n",
-                        Stream.generate(() -> " ")
-                                .limit(dividendColWidth - offset - dividentLen)
-                                .map(Object::toString)
-                                .collect(Collectors.joining()),
+                System.out.format("%s_%d%n",
+                        getSpacer(" ", offset),
                         dividend
-                        );
-                System.out.format(" %s %s%n",
-                        Stream.generate(() -> " ")
-                                .limit(dividendColWidth - offset - dividentLen)
-                                .map(Object::toString)
-                                .collect(Collectors.joining()),
-                        Stream.generate(() -> "-")
-                                .limit(dividentLen)
-                                .map(Object::toString)
-                                .collect(Collectors.joining())
-
                 );
-                if(i == lines.size()-1) {
+                System.out.format("%s%d%n",
+                        getSpacer(" ", offset + 1),
+                        lineResult
+                );
+                System.out.format("%s %s%n",
+                        getSpacer(" ", offset),
+                        getSpacer("-", dividentLen)
+                );
 
-                    System.out.format(" %s %d%n",
-                            Stream.generate(() -> " ")
-                                    .limit(dividendColWidth - offset - dividentLen + lineResultLen)
-                                    .map(Object::toString)
-                                    .collect(Collectors.joining()),
-                            reminder
-                    );
-                }
+            }
+            offset += dividentLen - 1;
+            if(i == lines.size()-1) {
+                System.out.format("%s%d%n",
+                        getSpacer(" ", offset + 1),
+                        reminder
+                );
             }
         }
+    }
+    private static String getSpacer(String spaceChar, int quantity) {
+        return Stream.generate(() -> spaceChar)
+                .limit( quantity)
+                .map(Object::toString)
+                .collect(Collectors.joining());
     }
 }

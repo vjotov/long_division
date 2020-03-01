@@ -3,7 +3,6 @@ package com.company;
 import java.util.Objects;
 
 public class ResultItem {
-    private int offset;
     private int dividend;
     private int divisor;
     private int result;
@@ -11,18 +10,10 @@ public class ResultItem {
 
     public ResultItem() {}
 
-    public ResultItem(int offset, int reminder) {
-        this.offset = offset;
+    public ResultItem(int reminder) {
         this.reminder = reminder;
     }
 
-    public int getOffset() {
-        return offset;
-    }
-
-    public void setOffset(int offset) {
-        this.offset = offset;
-    }
 
     public int getDividend() {
         return dividend;
@@ -53,15 +44,14 @@ public class ResultItem {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         ResultItem that = (ResultItem) o;
-        return offset == that.offset &&
-                dividend == that.dividend &&
+        return  dividend == that.dividend &&
                 divisor == that.divisor &&
                 reminder == that.reminder;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(offset, dividend, divisor, reminder);
+        return Objects.hash(dividend, divisor, reminder);
     }
 
     public void setResult(int result) {

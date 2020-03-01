@@ -1,17 +1,18 @@
 package com.company;
 
-import java.text.Format;
 import java.util.Scanner;
 
 public class LongDivisionApp {
 
     public static void main(String[] args) {
-//	    int devident = getInput("divident");
-//	    int divisor = getInput("divisor");
-        //System.out.println(((int) Math.log10(123111) + 1));
-//        Result result = Claculator.divide(devident, divisor);
-        Result result = Claculator.divide(78945, 4);
-        Formatter.print(result);
+	    int devident = getInput("divident");
+	    int divisor = getInput("divisor");
+
+        Result result = Claculator.divide(devident, divisor);
+
+        FormatterFactory fFactory = new FormatterFactory();
+        Formatter formmatter = fFactory.getFormatter("Normal");
+        formmatter.print(result);
     }
     private static int getInput(String inputName) {
         Scanner in = new Scanner(System.in);

@@ -11,7 +11,7 @@ public class Claculator {
         Result result = new Result(dividend,divisor);
 
         if (dividend < divisor) {
-            ResultItem line = new ResultItem(0,divisor);
+            ResultItem line = new ResultItem(divisor);
             result.addResult(line);
             return result;
         }
@@ -40,7 +40,7 @@ public class Claculator {
                 continue;
             } else {
                 if (tmpInt == 0) {
-                    ResultItem line = new ResultItem(0, 0);
+                    ResultItem line = new ResultItem(0);
                     result.addResult(line);
                     if (i < dividendNums.length-1) {
                         tmpInt = dividendNums[i+1];
@@ -52,7 +52,7 @@ public class Claculator {
                         tmpInt = tmpInt * 10 + dividendNums[i+1];
                         continue;
                     } else {
-                        ResultItem line = new ResultItem(0, tmpInt);
+                        ResultItem line = new ResultItem(tmpInt);
                         result.addResult(line);
                     }
                 }

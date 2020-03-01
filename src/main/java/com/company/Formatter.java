@@ -17,32 +17,28 @@ public class Formatter {
             ResultItem line = lines.get(i);
 
             int dividend = line.getDividend();
-            int reminder = line.getReminder();
             int lineResult = line.getResult()*line.getDivisor();
-            int lineResultLen = (int) Math.log10(line.getReminder()) + 1;
             int dividentLen = (int) Math.log10(dividend) +1;
             if(i==0) {
-                System.out.format(" %d%s|%s%n",
+                int lineResultLen = (int) Math.log10(line.getReminder()) + 1;
+                System.out.format(" %d%s|%s%n %s%s|%s%n",
                         lineResult,
                         getSpacer(" ", dividendColWidth - lineResultLen),
-                        getSpacer("-", resultLengts)
-                );
-                System.out.format(" %s%s|%s%n",
+                        getSpacer("-", resultLengts),
+                        // new line
                         getSpacer("-", lineResultLen),
                         getSpacer(" ", dividendColWidth - offset - lineResultLen),
                         result.getResult()
                 );
             } else {
-                System.out.format("%s_%d%n",
+                System.out.format("%s_%d%n%s%d%n%s%s%n",
                         getSpacer(" ", offset),
-                        dividend
-                );
-                System.out.format("%s%d%n",
+                        dividend,
+                        // new line
                         getSpacer(" ", offset + 1),
-                        lineResult
-                );
-                System.out.format("%s %s%n",
-                        getSpacer(" ", offset),
+                        lineResult,
+                        // new line
+                        getSpacer(" ", offset + 1),
                         getSpacer("-", dividentLen)
                 );
 
@@ -51,7 +47,7 @@ public class Formatter {
             if(i == lines.size()-1) {
                 System.out.format("%s%d%n",
                         getSpacer(" ", offset + 1),
-                        reminder
+                        line.getReminder()
                 );
             }
         }

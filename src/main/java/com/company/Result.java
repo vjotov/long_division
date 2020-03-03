@@ -12,8 +12,8 @@ public class Result {
 
 
     public Result(int dividend, int divisor) {
-        this.dividend = dividend;
-        this.divisor = divisor;
+        this.dividend = Math.abs(dividend);
+        this.divisor = Math.abs(divisor);
         this.isPositiveResult = !(dividend < 0 ^ divisor < 0);
         this.result = dividend/divisor;
         resultLines = new ArrayList<ResultItem>();

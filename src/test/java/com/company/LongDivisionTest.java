@@ -2,6 +2,8 @@ package com.company;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+
 import static org.hamcrest.Matchers.hasProperty;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -18,43 +20,53 @@ public class LongDivisionTest {
     @Test
     void divisionByZero() {
         assertThrows(IllegalArgumentException.class, () -> {
-            Claculator.divide(1,0);});
+            Claculator.divide(1, 0);
+        });
     }
 
-//    @Test
-//    void hundertByOne() {
-//        Result result = Claculator.divide(132,2);
-//    }
-////    @Test
-//    void divisionOnGreater() {
-//        Result result = Claculator.divide(1,2);
-//        assertTrue(result.isPositiveResult());
-//        ResultItem line = result.getLastResult();
-//        assertEquals(new ResultItem(0,1,2,0,0),line);
-//    }
-//
-////    @Test
-//    void fourOnTwo() {
-//        Result result = Claculator.divide(4,2);
-//        assertTrue(result.isPositiveResult());
-//        ResultItem line = result.getLastResult();
-//        assertEquals(new ResultItem(0,4,2,2,0),line);
-//    }
-////    @Test
-//    void twoOnTwo() {
-//        Result result = Claculator.divide(-2,-2);
-//        assertTrue(result.isPositiveResult());
-//        ResultItem line = result.getLastResult();
-//        assertEquals(new ResultItem(0,2,2,1,0),line);
-//    }
-////    @Test
-//    void fiveOnTwo() {
-//        Result result = Claculator.divide(-5,2);
-//        assertTrue(!result.isPositiveResult());
-//        ResultItem line = result.getLastResult();
-//        assertEquals(new ResultItem(0,5,2,2,1),line);
-//    }
-//
+    @Test
+    void hundertByOne() {
+        Result result = Claculator.divide(100, 1);
+        assertTrue(result.isPositiveResult());
+        ArrayList<ResultItem> lines = result.getResultLines();
+        assertEquals(3, lines.size());
+        assertEquals(new ResultItem(1, 1, 1, 0), lines.get(0));
+        assertEquals(new ResultItem(0, 0, 0, 0), lines.get(1));
+        assertEquals(new ResultItem(0, 0, 0, 0), lines.get(2));
+    }
+
+    @Test
+    void divisionOnGreater() {
+        Result result = Claculator.divide(1, 2);
+        assertTrue(result.isPositiveResult());
+        ArrayList<ResultItem> lines = result.getResultLines();
+        assertEquals(new ResultItem(0, 2, 0, 1), lines.get(0));
+    }
+
+    @Test
+    void fourOnTwo() {
+        Result result = Claculator.divide(4, 2);
+        assertTrue(result.isPositiveResult());
+        ArrayList<ResultItem> lines = result.getResultLines();
+        assertEquals(new ResultItem(4, 2, 2, 0), lines.get(0));
+    }
+
+    @Test
+    void twoOnTwo() {
+        Result result = Claculator.divide(-2, -2);
+        assertTrue(result.isPositiveResult());
+        ArrayList<ResultItem> lines = result.getResultLines();
+        assertEquals(new ResultItem(2, 2, 1, 0), lines.get(0));
+    }
+
+    @Test
+    void fiveOnTwo() {
+        Result result = Claculator.divide(-5, 2);
+        assertTrue(!result.isPositiveResult());
+        ArrayList<ResultItem> lines = result.getResultLines();
+        assertEquals(new ResultItem(5, 2, 2, 1), lines.get(0));
+    }
+
 //    //@Test
 //    void n210On3() {
 //        Result result = Claculator.divide(210,3);

@@ -11,9 +11,11 @@ public class Claculator {
             throw new IllegalArgumentException("Divisor cannot be 0, division by zero");
         }
         Result result = new Result(dividend, divisor);
+        dividend = result.getDividend();
+        divisor = result.getDivisor();
 
         if (dividend < divisor) {
-            ResultItem line = new ResultItem(divisor);
+            ResultItem line = new ResultItem(0,divisor,0,dividend);
             result.addResult(line);
             return result;
         }
@@ -36,9 +38,8 @@ public class Claculator {
                 result.addResult(line);
                 reminder = nextReminder;
             }
-            else if (i == dividendNums.size() - 1) {
-                ResultItem line = new ResultItem(reminder);
-                result.addResult(line);
+            else if(reminder == 0 || i == dividendNums.size() - 1) {
+                result.addResult(new ResultItem(reminder));
             }
 
         }

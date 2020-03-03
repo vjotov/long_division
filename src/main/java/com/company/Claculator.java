@@ -36,7 +36,7 @@ public class Claculator {
                 result.addResult(line);
                 reminder = nextReminder;
             }
-            if (i == dividendNums.size() - 1) {
+            else if (i == dividendNums.size() - 1) {
                 ResultItem line = new ResultItem(reminder);
                 result.addResult(line);
             }

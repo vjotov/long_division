@@ -11,6 +11,8 @@ public class LongDivisionTest {
         assertEquals(2, Util.getNumberLength(10));
         assertEquals(1, Util.getNumberLength(1));
         assertEquals(1, Util.getNumberLength(0));
+        assertEquals(1, Util.getNumberLength(-5));
+        assertEquals(5, Util.getNumberLength(12345));
     }
 
     @Test

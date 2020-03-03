@@ -7,7 +7,7 @@ import java.util.stream.Stream;
 public class FormatterImpl implements Formatter {
     @Override
     public void print(Result result) {
-        System.out.format("_%d| %d%n",result.getDividend(),result.getDivisor());
+        System.out.format("_%d|%d%n",result.getDividend(),result.getDivisor());
         ArrayList<ResultItem> lines = result.getResultLines();
         int dividendColWidth = (int) Math.log10(result.getDividend()) + 1;
         int resultLengts = (int) Math.log10(result.getResult()) + 1;
@@ -18,16 +18,18 @@ public class FormatterImpl implements Formatter {
 
             int dividend = line.getDividend();
             int lineResult = line.getResult()*line.getDivisor();
-            int dividentLen = (int) Math.log10(dividend) +1;
+            int dividentLen = (dividend == 0) ? 1 : ((int) Math.log10(dividend) + 1);
+
             if(i==0) {
                 int lineResultLen = (int) Math.log10(lineResult) + 1;
-                System.out.format(" %d%s|%s%n %s%s|%s%n",
+                System.out.format("%s%d%s|%s%n %s%s|%s%n",
+                        getSpacer(" ", 1 + getCarrySpace(dividend, lineResult)),
                         lineResult,
-                        getSpacer(" ", dividendColWidth - lineResultLen),
+                        getSpacer(" ", dividendColWidth - lineResultLen - getCarrySpace(dividend, lineResult)),
                         getSpacer("-", resultLengts),
                         // new line
-                        getSpacer("-", lineResultLen),
-                        getSpacer(" ", dividendColWidth - offset - lineResultLen),
+                        getSpacer("-", lineResultLen + getCarrySpace(dividend, lineResult)),
+                        getSpacer(" ", dividendColWidth - offset - lineResultLen - getCarrySpace(dividend, lineResult)),
                         result.getResult()
                 );
             } else {
@@ -35,7 +37,7 @@ public class FormatterImpl implements Formatter {
                         getSpacer(" ", offset),
                         dividend,
                         // new line
-                        getSpacer(" ", offset + 1),
+                        getSpacer(" ", offset + 1 + getCarrySpace(dividend, lineResult)),
                         lineResult,
                         // new line
                         getSpacer(" ", offset + 1),
@@ -46,7 +48,7 @@ public class FormatterImpl implements Formatter {
 
             if(i == lines.size()-1) {
                 System.out.format("%s%d%n",
-                        getSpacer(" ", offset + 1),
+                        getSpacer(" ", offset + 1 + getCarrySpace(dividend, line.getReminder())),
                         line.getReminder()
                 );
             }
@@ -63,5 +65,11 @@ public class FormatterImpl implements Formatter {
                 .limit(quantity)
                 .map(Object::toString)
                 .collect(Collectors.joining());
+    }
+    private int getCarrySpace(int dividend, int lineResult) {
+        if((int) Math.log10(dividend) == (int) Math.log10(lineResult))
+            return 0;
+        else
+            return 1;
     }
 }

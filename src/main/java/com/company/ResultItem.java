@@ -14,6 +14,13 @@ public class ResultItem {
         this.reminder = reminder;
     }
 
+    public ResultItem(int dividend, int divisor, int result, int reminder) {
+        this.dividend = dividend;
+        this.divisor = divisor;
+        this.result = result;
+        this.reminder = reminder;
+    }
+
 
     public int getDividend() {
         return dividend;

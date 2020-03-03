@@ -9,8 +9,8 @@ public class FormatterImpl implements Formatter {
     public void print(Result result) {
         System.out.format("_%d|%d%n",result.getDividend(),result.getDivisor());
         ArrayList<ResultItem> lines = result.getResultLines();
-        int dividendColWidth = (int) Math.log10(result.getDividend()) + 1;
-        int resultLengts = (int) Math.log10(result.getResult()) + 1;
+        int dividendColWidth = Util.getNumberLength(result.getDividend());
+        int resultLengts = Util.getNumberLength(result.getResult());
 
         int offset = 0;
         for ( int i = 0; i < lines.size(); i++) {
@@ -18,10 +18,10 @@ public class FormatterImpl implements Formatter {
 
             int dividend = line.getDividend();
             int lineResult = line.getResult()*line.getDivisor();
-            int dividentLen = (dividend == 0) ? 1 : ((int) Math.log10(dividend) + 1);
+            int dividentLen = (dividend == 0) ? 1 : Util.getNumberLength(dividend);
 
             if(i==0) {
-                int lineResultLen = (int) Math.log10(lineResult) + 1;
+                int lineResultLen = Util.getNumberLength(lineResult);
                 System.out.format("%s%d%s|%s%n %s%s|%s%n",
                         getSpacer(" ", 1 + getCarrySpace(dividend, lineResult)),
                         lineResult,
@@ -67,7 +67,7 @@ public class FormatterImpl implements Formatter {
                 .collect(Collectors.joining());
     }
     private int getCarrySpace(int dividend, int lineResult) {
-        if((int) Math.log10(dividend) == (int) Math.log10(lineResult))
+        if(Util.getNumberLength(dividend) == Util.getNumberLength(lineResult))
             return 0;
         else
             return 1;

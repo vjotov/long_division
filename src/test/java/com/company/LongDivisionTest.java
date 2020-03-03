@@ -6,6 +6,12 @@ import static org.hamcrest.Matchers.hasProperty;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class LongDivisionTest {
+    @Test
+    void numberLength() {
+        assertEquals(2, Util.getNumberLength(10));
+        assertEquals(1, Util.getNumberLength(1));
+        assertEquals(1, Util.getNumberLength(0));
+    }
 
     @Test
     void divisionByZero() {
@@ -13,10 +19,10 @@ public class LongDivisionTest {
             Claculator.divide(1,0);});
     }
 
-    @Test
-    void hundertByOne() {
-        Result result = Claculator.divide(132,2);
-    }
+//    @Test
+//    void hundertByOne() {
+//        Result result = Claculator.divide(132,2);
+//    }
 ////    @Test
 //    void divisionOnGreater() {
 //        Result result = Claculator.divide(1,2);

@@ -62,4 +62,25 @@ public class FormatterTest {
         assertEquals("   0", lines.get(6));
 
     }
+    @Test
+    void T11332By3() {
+        Result result = Claculator.divide(11332, 3);
+        List<String> lines = formatter.getPrintLines(result);
+
+        assertEquals(13, lines.size());
+        assertEquals("_11332|3", lines.get(0));
+        assertEquals("  9   |----", lines.get(1));
+        assertEquals(" --   |3777", lines.get(2));
+        assertEquals(" _23", lines.get(3));
+        assertEquals("  21", lines.get(4));
+        assertEquals("  --", lines.get(5));
+        assertEquals("  _23", lines.get(6));
+        assertEquals("   21", lines.get(7));
+        assertEquals("   --", lines.get(8));
+        assertEquals("   _22", lines.get(9));
+        assertEquals("    21", lines.get(10));
+        assertEquals("    --", lines.get(11));
+        assertEquals("     1", lines.get(12));
+
+    }
 }

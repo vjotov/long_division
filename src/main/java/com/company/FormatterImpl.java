@@ -38,6 +38,10 @@ public class FormatterImpl implements Formatter {
                         result.getResult()
                 ));
             } else {
+                if (dividend == 0) {
+                    offset++;
+                    continue;
+                }
                 printResult.add(String.format("%s_%d",
                         getSpacer(" ", offset),
                         dividend
@@ -52,20 +56,35 @@ public class FormatterImpl implements Formatter {
                 ));
             }
 
-            if (i == lines.size() - 1) {
+            int reminderLength = Util.getNumberLength(line.getReminder());
+            if (isLast(lines, i)) {
+
                 printResult.add(String.format("%s%d",
-                        getSpacer(" ", offset + 1 + getCarrySpace(dividend, line.getReminder())),
+                        getSpacer(" ", offset +
+                                getDividentSpace(dividentLen, reminderLength) +
+                                getCarrySpace(dividend, reminderLength)),
                         line.getReminder()
                 ));
-            }
-
-            if (line.getReminder() == 0) {
-                offset += dividentLen;
             } else {
-                offset += dividentLen - 1;
+                if (line.getReminder() == 0) {
+                    offset += dividentLen;
+                } else if (reminderLength != dividentLen) {
+                    offset += dividentLen - 1;
+                }
             }
         }
         return printResult;
+    }
+
+    private int getDividentSpace(int dividentLength, int reminderLength) {
+        if (dividentLength - reminderLength == 0)
+            return 1;
+        else
+            return dividentLength - reminderLength;
+    }
+
+    private boolean isLast(ArrayList<ResultItem> lines, int i) {
+        return i == lines.size() - 1;
     }
 
     private String getSpacer(String spaceChar, int quantity) {

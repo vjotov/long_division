@@ -20,13 +20,13 @@ public class Claculator {
             return result;
         }
 
-        List<Integer> dividendNums = getListOfDigits(dividend);
+        Stack<Integer> dividendNums = getListOfDigits(dividend);
 
 
         int reminder = 0;
 
-        for (int i = 0; i < dividendNums.size(); i++) {
-            reminder = reminder * 10 + dividendNums.get(i);
+        while (! dividendNums.empty()) {
+            reminder = reminder * 10 + dividendNums.pop();
             if (reminder >= divisor) {
                 int nextReminder = reminder % divisor;
                 ResultItem line = new ResultItem(
@@ -38,7 +38,7 @@ public class Claculator {
                 result.addResult(line);
                 reminder = nextReminder;
             }
-            else if(reminder == 0 || i == dividendNums.size() - 1) {
+            else if(reminder == 0 || dividendNums.size() == 0) {
                 result.addResult(new ResultItem(reminder));
             }
 
@@ -47,19 +47,10 @@ public class Claculator {
         return result;
     }
 
-    private static List<Integer> getListOfDigits(int number) {
-        int numberLength = Util.getNumberLength(number);
-        List<Integer> result = new LinkedList<Integer>();
-        AtomicInteger tempNum = new AtomicInteger(number);
-
-        result = Stream.generate(() -> "")
-                .limit(numberLength)
-                .map((m) -> {
-                    Integer tt = tempNum.get();
-                    tempNum.set(tt / 10);
-                    return tt % 10;
-                }).collect(Collectors.toList());
-        Collections.reverse(result);
-        return result;
+    private static Stack<Integer> getListOfDigits(int number) {
+          return Stream.iterate(number, i -> i/10)
+                .limit(Util.getNumberLength(number))
+                .map(i -> i % 10)
+                .collect(Collectors.toCollection(Stack::new));
     }
 }

@@ -78,8 +78,7 @@ public class FormatterImpl implements Formatter {
                 }
             }
         }
-//        printResult.stream().forEach(s )
-        return "";
+        return String.join("\n",printResult);
     }
 
     private void resetLeadingZeros() {

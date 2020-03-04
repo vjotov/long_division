@@ -8,7 +8,7 @@ import java.util.stream.Stream;
 public class FormatterImpl implements Formatter {
     private int leadingZeros = 0;
     @Override
-    public List<String> getPrintLines(Result result) {
+    public String format(Result result) {
         List<String> printResult = new ArrayList<String>();
         printResult.add(String.format("_%d|%d", result.getDividend(), result.getDivisor()));
         ArrayList<ResultItem> lines = result.getResultLines();
@@ -78,7 +78,8 @@ public class FormatterImpl implements Formatter {
                 }
             }
         }
-        return printResult;
+//        printResult.stream().forEach(s )
+        return "";
     }
 
     private void resetLeadingZeros() {

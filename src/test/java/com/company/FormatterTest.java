@@ -1,6 +1,5 @@
 package com.company;
 
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -20,67 +19,59 @@ public class FormatterTest {
     @Test
     void T3By3() {
         Result result = Claculator.divide(3, 3);
-        List<String> lines = formatter.getPrintLines(result);
 
-        assertEquals(4, lines.size());
-        assertEquals("_3|3", lines.get(0));
-        assertEquals(" 3|-", lines.get(1));
-        assertEquals(" -|1", lines.get(2));
-        assertEquals(" 0", lines.get(3));
+        assertEquals("_3|3\n" +
+                " 3|-\n" +
+                " -|1\n" +
+                " 0", formatter.format(result));
     }
 
     @Test
     void T34By12() {
         Result result = Claculator.divide(12345, 12);
-        List<String> lines = formatter.getPrintLines(result);
 
-        assertEquals(10, lines.size());
-        assertEquals("_12345|12", lines.get(0));
-        assertEquals(" 12   |----", lines.get(1));
-        assertEquals(" --   |1028", lines.get(2));
-        assertEquals("  _34", lines.get(3));
-        assertEquals("   24", lines.get(4));
-        assertEquals("   --", lines.get(5));
-        assertEquals("  _105", lines.get(6));
-        assertEquals("    96", lines.get(7));
-        assertEquals("   ---", lines.get(8));
-        assertEquals("     9", lines.get(9));
+        assertEquals("_12345|12\n" +
+                " 12   |----\n" +
+                " --   |1028\n" +
+                "  _34\n" +
+                "   24\n" +
+                "   --\n" +
+                "  _105\n" +
+                "    96\n" +
+                "   ---\n" +
+                "     9", formatter.format(result));
     }
 
     @Test
     void T505By5() {
         Result result = Claculator.divide(505, 5);
-        List<String> lines = formatter.getPrintLines(result);
 
-        assertEquals(7, lines.size());
-        assertEquals("_505|5", lines.get(0));
-        assertEquals(" 5  |---", lines.get(1));
-        assertEquals(" -  |101", lines.get(2));
-        assertEquals(" _05", lines.get(3));
-        assertEquals("   5", lines.get(4));
-        assertEquals("  --", lines.get(5));
-        assertEquals("   0", lines.get(6));
-
+        assertEquals("_505|5\n" +
+                " 5  |---\n" +
+                " -  |101\n" +
+                " _05\n" +
+                "   5\n" +
+                "  --\n" +
+                "   0", formatter.format(result));
     }
+
     @Test
     void T11332By3() {
         Result result = Claculator.divide(11332, 3);
-        List<String> lines = formatter.getPrintLines(result);
 
-        assertEquals(13, lines.size());
-        assertEquals("_11332|3", lines.get(0));
-        assertEquals("  9   |----", lines.get(1));
-        assertEquals(" --   |3777", lines.get(2));
-        assertEquals(" _23", lines.get(3));
-        assertEquals("  21", lines.get(4));
-        assertEquals("  --", lines.get(5));
-        assertEquals("  _23", lines.get(6));
-        assertEquals("   21", lines.get(7));
-        assertEquals("   --", lines.get(8));
-        assertEquals("   _22", lines.get(9));
-        assertEquals("    21", lines.get(10));
-        assertEquals("    --", lines.get(11));
-        assertEquals("     1", lines.get(12));
+        assertEquals("_11332|3\n" +
+                "  9   |----\n" +
+                " --   |3777\n" +
+                " _23\n" +
+                "  21\n" +
+                "  --\n" +
+                "  _23\n" +
+                "   21\n" +
+                "   --\n" +
+                "   _22\n" +
+                "    21\n" +
+                "    --\n" +
+                "     1", formatter.format(result));
 
     }
 }

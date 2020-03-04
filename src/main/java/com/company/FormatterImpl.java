@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class FormatterImpl implements Formatter {
+    private int leadingZeros = 0;
     @Override
     public List<String> getPrintLines(Result result) {
         List<String> printResult = new ArrayList<String>();
@@ -15,6 +16,7 @@ public class FormatterImpl implements Formatter {
         int resultLengts = Util.getNumberLength(result.getResult());
 
         int offset = 0;
+
         for (int i = 0; i < lines.size(); i++) {
             ResultItem line = lines.get(i);
 
@@ -39,11 +41,13 @@ public class FormatterImpl implements Formatter {
                 ));
             } else {
                 if (dividend == 0) {
+                    this.leadingZeros++;
                     offset++;
                     continue;
                 }
-                printResult.add(String.format("%s_%d",
-                        getSpacer(" ", offset),
+                printResult.add(String.format("%s_%s%d",
+                        getSpacer(" ", offset - this.leadingZeros),
+                        getSpacer("0", leadingZeros),
                         dividend
                 ));
                 printResult.add(String.format("%s%d",
@@ -51,9 +55,10 @@ public class FormatterImpl implements Formatter {
                         lineResult
                 ));
                 printResult.add(String.format("%s%s",
-                        getSpacer(" ", offset + 1),
-                        getSpacer("-", dividentLen)
+                        getSpacer(" ", offset + 1 - this.leadingZeros),
+                        getSpacer("-", dividentLen + this.leadingZeros)
                 ));
+                resetLeadingZeros();
             }
 
             int reminderLength = Util.getNumberLength(line.getReminder());
@@ -74,6 +79,10 @@ public class FormatterImpl implements Formatter {
             }
         }
         return printResult;
+    }
+
+    private void resetLeadingZeros() {
+        leadingZeros = 0;
     }
 
     private int getDividentSpace(int dividentLength, int reminderLength) {

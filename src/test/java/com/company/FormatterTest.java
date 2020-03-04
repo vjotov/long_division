@@ -56,9 +56,9 @@ public class FormatterTest {
         assertEquals("_505|5", lines.get(0));
         assertEquals(" 5  |---", lines.get(1));
         assertEquals(" -  |101", lines.get(2));
-        assertEquals("  _5", lines.get(3));
+        assertEquals(" _05", lines.get(3));
         assertEquals("   5", lines.get(4));
-        assertEquals("   -", lines.get(5));
+        assertEquals("  --", lines.get(5));
         assertEquals("   0", lines.get(6));
 
     }

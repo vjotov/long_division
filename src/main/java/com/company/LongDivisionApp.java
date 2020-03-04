@@ -1,5 +1,6 @@
 package com.company;
 
+import java.util.List;
 import java.util.Scanner;
 
 public class LongDivisionApp {
@@ -12,7 +13,9 @@ public class LongDivisionApp {
 
         FormatterFactory fFactory = new FormatterFactory();
         Formatter formmatter = fFactory.getFormatter("Normal");
-        formmatter.print(result);
+        List<String> lines = formmatter.getPrintLines(result);
+
+        lines.stream().forEach(s -> System.out.print(s));
     }
     private static int getInput(String inputName) {
         Scanner in = new Scanner(System.in);

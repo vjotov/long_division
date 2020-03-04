@@ -1,5 +1,7 @@
 package com.company;
 
+import java.util.List;
+
 public interface Formatter {
-    void print(Result result);
+    List<String> getPrintLines(Result result);
 }

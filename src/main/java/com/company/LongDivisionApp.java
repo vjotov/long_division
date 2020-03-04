@@ -15,7 +15,7 @@ public class LongDivisionApp {
         Formatter formmatter = fFactory.getFormatter("Normal");
         List<String> lines = formmatter.getPrintLines(result);
 
-        lines.stream().forEach(s -> System.out.print(s));
+        lines.stream().forEach(s -> System.out.println(s));
     }
     private static int getInput(String inputName) {
         Scanner in = new Scanner(System.in);
